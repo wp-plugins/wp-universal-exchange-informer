@@ -1,0 +1,44 @@
+#: wp-uci-plugin.php:69
+msgid "Select bank to get exchange rates"
+msgstr ""
+
+#: wp-uci-plugin.php:71
+msgid "Bank not selected"
+msgstr ""
+
+#: wp-uci-plugin.php:83
+msgid "Widget title"
+msgstr ""
+
+#: wp-uci-plugin.php:86
+msgid "Number of currencies in widget"
+msgstr ""
+
+#: wp-uci-plugin.php:88
+msgid "Select currencies"
+msgstr ""
+
+#: wp-uci-plugin.php:93
+msgid "Currency"
+msgstr ""
+
+#: wp-uci-plugin.php:95
+msgid "Not active"
+msgstr ""
+
+#: wp-uci-plugin.php:115
+msgid "Save Changes"
+msgstr ""
+
+#: wp-uci-plugin.php:211
+msgid "Lei"
+msgstr ""
+
+#: wp-uci-plugin.php:212
+msgid "Grn"
+msgstr ""
+
+#: wp-uci-plugin.php:213
+msgid "Rub"
+msgstr ""
+
