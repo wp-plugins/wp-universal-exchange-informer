@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Universal Exchange Informer\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: santiaga <santiaga1@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: wp-uci-plugin.php:69
+msgid "Select bank to get exchange rates"
+msgstr "Выберите банк для получения курса валют"
+
+#: wp-uci-plugin.php:71
+msgid "Bank not selected"
+msgstr "Банк не выбран"
+
+#: wp-uci-plugin.php:83
+msgid "Widget title"
+msgstr "Заголовок виджета"
+
+#: wp-uci-plugin.php:86
+msgid "Number of currencies in widget"
+msgstr "Количество валют в виджете"
+
+#: wp-uci-plugin.php:88
+msgid "Select currencies"
+msgstr "Выберите валюты"
+
+#: wp-uci-plugin.php:93
+msgid "Currency"
+msgstr "Валюта"
+
+#: wp-uci-plugin.php:95
+msgid "Not active"
+msgstr "Не активна"
+
+#: wp-uci-plugin.php:115
+msgid "Save Changes"
+msgstr "Сохранить Настройки"
+
+#: wp-uci-plugin.php:211
+msgid "Lei"
+msgstr "Лей"
+
+#: wp-uci-plugin.php:212
+msgid "Grn"
+msgstr "Грн"
+
+#: wp-uci-plugin.php:213
+msgid "Rub"
+msgstr "Руб"
+
