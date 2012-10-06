@@ -4,7 +4,7 @@
 Plugin Name: WP Universal Exchange Informer
 Plugin URI: http://cyber-notes.net
 Description: Exchange rate informer for Wordpress
-Version: 0.1
+Version: 0.2
 Author: Santiaga
 Author URI: http://cyber-notes.net
 License: GPLv2 or later
@@ -23,6 +23,14 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 */
+
+/* Localization */
+
+add_action('plugins_loaded','wpuci_text_domain',1);
+
+function wpuci_text_domain() {
+	load_plugin_textdomain('wp-universal-exchange-informer',false,dirname(plugin_basename(__FILE__)).'/lang/');
+}
 
 /* Admin Interface*/
 
@@ -66,9 +74,9 @@ if(is_admin() && (!defined('DOING_AJAX') || !DOING_AJAX)) {
 		
 		/* Select Bank */
 		echo "
-			<h4>Select bank to get exchange rates:</h4>\n
+			<h4>".__('Select bank to get exchange rates','wp-universal-exchange-informer').":</h4>\n
 			<select name=\"wp_uci_bank\">\n
-			<option>Bank not selected...</option>\n
+			<option>".__('Bank not selected','wp-universal-exchange-informer')."...</option>\n
 			";
 			foreach($banks as $k=>$v) {
 				$selected=($k==get_option('wp_uci_bank'))?"selected=\"selected\" ":"";
@@ -80,19 +88,19 @@ if(is_admin() && (!defined('DOING_AJAX') || !DOING_AJAX)) {
 			";
 		
 		/* Set Widget Title */
-		echo "<br><label>Widget title:</label><input type=\"text\" size=\"30\" name=\"wp_uci_widget_title\" value=\"".get_option('wp_uci_widget_title')."\" /><br>";
+		echo "<br><label>".__('Widget title','wp-universal-exchange-informer').":</label><input type=\"text\" size=\"30\" name=\"wp_uci_widget_title\" value=\"".get_option('wp_uci_widget_title')."\" /><br>";
 		
 		/* Set max currencies */
-		echo "<br><label>Number of currencies in widget:</label><input type=\"text\" size=\"3\" name=\"wp_uci_currencies_max\" value=\"".get_option('wp_uci_currencies_max')."\" /><br>";
+		echo "<br><label>".__('Number of currencies in widget','wp-universal-exchange-informer').":</label><input type=\"text\" size=\"3\" name=\"wp_uci_currencies_max\" value=\"".get_option('wp_uci_currencies_max')."\" /><br>";
 		
-		echo "<h4>Select currencies:</h4>\n";
+		echo "<h4>".__('Select currencies','wp-universal-exchange-informer').":</h4>\n";
 		
 		/* Select Currency */
 		for($i=1;$i<=get_option('wp_uci_currencies_max');$i++) {
 			echo "
-				<label>Currency ".$i."</label>\n
+				<label>".__('Currency','wp-universal-exchange-informer')." ".$i."</label>\n
 				<select name=\"wp_uci_currency".$i."\">\n
-				<option value=\"\">Not active</option>\n
+				<option value=\"\">".__('Not active','wp-universal-exchange-informer')."</option>\n
 				";
 			foreach($currencies as $k=>$v) {
 				$selected=($v==get_option('wp_uci_currency'.$i))?"selected=\"selected\" ":"";
@@ -112,7 +120,7 @@ if(is_admin() && (!defined('DOING_AJAX') || !DOING_AJAX)) {
 		for($i=1;$i<=get_option('wp_uci_currencies_max');$i++) echo "wp_uci_currency".$i.",";
 		foreach($banks as $k=>$v) echo "wp_uci_currencies_upd_".$k.",";
 		echo "\" />\n
-			<input type=\"submit\" class=\"button-primary\" name=\"submit\" value=\"Save Changes\">\n
+			<input type=\"submit\" class=\"button-primary\" name=\"submit\" value=\"".__('Save Changes','wp-universal-exchange-informer')."\">\n
 			</form>\n
 			<br>\n
 			";
@@ -208,9 +216,9 @@ function wp_uci_widget_display($args,$instance) {
 	
 	$bank=get_option('wp_uci_bank');
 	$curr_name="";
-	if($bank=="nbm") { $curr_name="Lei"; $steps=4; }
-	elseif($bank=="nbu") { $curr_name="Grn"; $steps=4; }
-	elseif($bank=="cbr") { $curr_name="Rub"; $steps=4; }
+	if($bank=="nbm") { $curr_name=__('Lei','wp-universal-exchange-informer'); $steps=4; }
+	elseif($bank=="nbu") { $curr_name=__('Grn','wp-universal-exchange-informer'); $steps=4; }
+	elseif($bank=="cbr") { $curr_name=__('Rub','wp-universal-exchange-informer'); $steps=4; }
 	
 	echo $before_widget;
 	echo $before_title.get_option('wp_uci_widget_title').$after_title."

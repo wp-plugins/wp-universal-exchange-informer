@@ -4,7 +4,7 @@ Donate link: http://cyber-notes.net
 Tags: exchange rate, currency, informer
 Requires at least: 3.0.1
 Tested up to: 3.4.2
-Stable tag: 0.1
+Stable tag: 0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,10 +15,10 @@ Exchange rate informer for Wordpress
 Exchange rate informer for Wordpress.
 This plugin allow to get exchange rates from banks supported by plugin, and show their like widget in your blog.
 
-Supported banks:
-The Central Bank of the Russian Federation
-National bank of Ukraine
-National Bank of Moldova
+Supported banks: 
+The Central Bank of the Russian Federation, 
+National bank of Ukraine, 
+National Bank of Moldova.
 
 == Installation ==
 
@@ -37,3 +37,8 @@ National Bank of Moldova
 = 0.1 =
 
 * Initial release.
+
+= 0.2 =
+
+* Localization support added.
+* Added Russian Language.
