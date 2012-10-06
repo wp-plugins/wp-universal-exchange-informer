@@ -1,0 +1,51 @@
+#uci_table {
+	text-align: center;
+	font-size: 12px;
+	color: black;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+#uci_curr_title {
+	height: 17px;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+#uci_curr_text {
+	height: 17px;
+	text-align: left;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+}
+
+#uci_curr_text2 {
+	height: 17px;
+	text-align: center;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+}
+
+#uci_curr_text_red {
+	height: 17px;
+	text-align: center;
+	font-size: 12px;
+	color: red;
+	margin: 0;
+	padding: 0;
+}
+
+#uci_curr_text_green {
+	height: 17px;
+	text-align: center;
+	font-size: 12px;
+	color: green;
+	margin: 0;
+	padding: 0;
+}
