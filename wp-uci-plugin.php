@@ -4,7 +4,7 @@
 Plugin Name: WP Universal Exchange Informer
 Plugin URI: http://cyber-notes.net
 Description: Exchange rate informer for Wordpress
-Version: 0.2
+Version: 0.3
 Author: Santiaga
 Author URI: http://cyber-notes.net
 License: GPLv2 or later
@@ -198,7 +198,7 @@ wp_uci_get_currencies();
 
 /* Widget */
 
-function wp_uci_widget_display($args,$instance) {
+function wp_uci_widget_display($args) {
 	extract($args);
 	
 	$currencies=array(

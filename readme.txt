@@ -3,8 +3,8 @@ Contributors: santiaga
 Donate link: http://cyber-notes.net
 Tags: exchange rate, currency, informer
 Requires at least: 3.0.1
-Tested up to: 3.4.2
-Stable tag: 0.2
+Tested up to: 4.0
+Stable tag: 0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,3 +42,7 @@ National Bank of Moldova.
 
 * Localization support added.
 * Added Russian Language.
+
+= 0.3 =
+
+* Fixed some errors.
