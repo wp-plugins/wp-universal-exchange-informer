@@ -4,7 +4,7 @@
 Plugin Name: WP Universal Exchange Informer
 Plugin URI: http://cyber-notes.net
 Description: Exchange rate informer for Wordpress
-Version: 0.4
+Version: 0.4.1
 Author: Santiaga
 Author URI: http://cyber-notes.net
 License: GPLv2 or later
@@ -331,7 +331,7 @@ function uci_get_rates() {
 	}
 	/* Central Bank of Russia */
 	$text_day=date('D');
-	if(get_option('wp_uci_cbr_date')!=$current_date && $text_day!="Sun" && $text_day!="Mon") {
+	if((get_option('wp_uci_cbr_date')!=$current_date && $text_day!="Sun" && $text_day!="Mon") || get_option('wp_uci_cbr_date')=="") {
 		$today=date('d.m.Y',current_time('timestamp'));
 		$yesterday=date("d.m.Y",strtotime(date("d.m.Y",strtotime($today))."-1 day"));
 		$get_xml_today=file_get_contents("http://www.cbr.ru/scripts/XML_daily.asp?date_req=".$today,0);
@@ -340,48 +340,46 @@ function uci_get_rates() {
 		$xml_yesterday=new SimplexmlElement($get_xml_yesterday);
 		$xml_date=(string)$xml_today->attributes()->{'Date'};
 		$table_name=$wpdb->prefix."uci_cbr_rates";
-		if($xml_date==$today) {
-			foreach($xml_today->Valute as $ind=>$item) {
-				$rates_char=(string)$item->CharCode;
-				$rates_num=(string)$item->NumCode;
-				$rates_value=(string)$item->Value;
-				$rates_nominal=(string)$item->Nominal;
-				$val_exists=$wpdb->get_var("SELECT `num` FROM `".$table_name."` WHERE `num`='".$rates_num."'");
-				if($val_exists==NULL) {
-					$wpdb->insert($table_name,array(
-						'num'=>$rates_num,
-						'char'=>$rates_char,
-						'nominal'=>$rates_nominal,
-						'value'=>str_replace(",",".",$rates_value)
-					));
-				} else {
-					$wpdb->update($table_name,array(
-						'num'=>$rates_num,
-						'char'=>$rates_char,
-						'nominal'=>$rates_nominal,
-						'value'=>str_replace(",",".",$rates_value)
-					),
-						array('num'=>$rates_num)
-					);
-				}
-			}
-			foreach($xml_yesterday->Valute as $item) {
-				$today_nominal=$wpdb->get_var("SELECT `nominal` FROM `".$table_name."` WHERE `num`='".(string)$item->NumCode."'");
-				$today_value=$wpdb->get_var("SELECT `value` FROM `".$table_name."` WHERE `num`='".(string)$item->NumCode."'");
-				if($today_nominal!=(string)$item->Nominal) {
-					$yesterday_value=str_replace(",",".",(string)$item->Value)/(string)$item->Nominal*$today_nominal;
-				} else {
-					$yesterday_value=str_replace(",",".",(string)$item->Value);
-				}
-				$difference=$today_value-$yesterday_value;
+		foreach($xml_today->Valute as $ind=>$item) {
+			$rates_char=(string)$item->CharCode;
+			$rates_num=(string)$item->NumCode;
+			$rates_value=(string)$item->Value;
+			$rates_nominal=(string)$item->Nominal;
+			$val_exists=$wpdb->get_var("SELECT `num` FROM `".$table_name."` WHERE `num`='".$rates_num."'");
+			if($val_exists==NULL) {
+				$wpdb->insert($table_name,array(
+					'num'=>$rates_num,
+					'char'=>$rates_char,
+					'nominal'=>$rates_nominal,
+					'value'=>str_replace(",",".",$rates_value)
+				));
+			} else {
 				$wpdb->update($table_name,array(
-					'dif'=>round($difference,4)
+					'num'=>$rates_num,
+					'char'=>$rates_char,
+					'nominal'=>$rates_nominal,
+					'value'=>str_replace(",",".",$rates_value)
 				),
-					array('num'=>(string)$item->NumCode)
+					array('num'=>$rates_num)
 				);
 			}
-			update_option("wp_uci_cbr_date",$current_date);
 		}
+		foreach($xml_yesterday->Valute as $item) {
+			$today_nominal=$wpdb->get_var("SELECT `nominal` FROM `".$table_name."` WHERE `num`='".(string)$item->NumCode."'");
+			$today_value=$wpdb->get_var("SELECT `value` FROM `".$table_name."` WHERE `num`='".(string)$item->NumCode."'");
+			if($today_nominal!=(string)$item->Nominal) {
+				$yesterday_value=str_replace(",",".",(string)$item->Value)/(string)$item->Nominal*$today_nominal;
+			} else {
+				$yesterday_value=str_replace(",",".",(string)$item->Value);
+			}
+			$difference=$today_value-$yesterday_value;
+			$wpdb->update($table_name,array(
+				'dif'=>round($difference,4)
+			),
+				array('num'=>(string)$item->NumCode)
+			);
+		}
+		update_option("wp_uci_cbr_date",$xml_date);
 	}
 	/* National Bank of Ukraine */
 	if(get_option('wp_uci_nbu_date')!=$current_date) {
@@ -457,7 +455,7 @@ function uci_generate_informer($id) {
 		elseif($informer->bank=="nbu") { $curr_name=__('Grn','wp-universal-exchange-informer'); }
 		elseif($informer->bank=="cbr") { $curr_name=__('Rub','wp-universal-exchange-informer'); }
 		$date_str="wp_uci_".$informer->bank."_date";
-		$table_rates="wp_uci_".$informer->bank."_rates";
+		$table_rates=$wpdb->prefix."uci_".$informer->bank."_rates";
 		$date=get_option($date_str);
 		$rate_codes=explode(",",$informer->currency);
 		$informer_code="
@@ -505,5 +503,13 @@ function uci_informer_shortcode($atts) {
 add_shortcode("excange-informer","uci_informer_shortcode");
 /* Shortcodes in text widgets */
 add_filter('widget_text','do_shortcode');
+
+/* Deactivation */
+function uci_plugin_deactivation() {
+	update_option('wp_uci_nbm_date','');
+	update_option('wp_uci_cbr_date','');
+	update_option('wp_uci_nbu_date','');
+}
+register_deactivation_hook(__FILE__,'uci_plugin_deactivation');
 
 ?>
