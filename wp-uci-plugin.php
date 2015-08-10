@@ -4,7 +4,7 @@
 Plugin Name: WP Universal Exchange Informer
 Plugin URI: http://cyber-notes.net
 Description: Exchange rate informer for Wordpress
-Version: 0.4.3
+Version: 0.4.4
 Author: Santiaga
 Author URI: http://cyber-notes.net
 License: GPLv2 or later
@@ -330,8 +330,7 @@ function uci_get_rates() {
 		}
 	}
 	/* Central Bank of Russia */
-	$text_day=date('D');
-	if((get_option('wp_uci_cbr_date')!=$current_date && $text_day!="Sun" && $text_day!="Mon") || get_option('wp_uci_cbr_date')=="") {
+	if(get_option('wp_uci_cbr_date')!=$current_date) {
 		$today=date('d.m.Y',current_time('timestamp'));
 		$yesterday=date("d.m.Y",strtotime(date("d.m.Y",strtotime($today))."-1 day"));
 		$get_xml_today=file_get_contents("http://www.cbr.ru/scripts/XML_daily.asp?date_req=".$today,0);
@@ -379,7 +378,7 @@ function uci_get_rates() {
 				array('num'=>(string)$item->NumCode)
 			);
 		}
-		update_option("wp_uci_cbr_date",$xml_date);
+		update_option("wp_uci_cbr_date",$current_date);
 	}
 	/* National Bank of Ukraine */
 	if(get_option('wp_uci_nbu_date')!=$current_date) {
