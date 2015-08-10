@@ -4,7 +4,7 @@
 Plugin Name: WP Universal Exchange Informer
 Plugin URI: http://cyber-notes.net
 Description: Exchange rate informer for Wordpress
-Version: 0.4.1
+Version: 0.4.2
 Author: Santiaga
 Author URI: http://cyber-notes.net
 License: GPLv2 or later
