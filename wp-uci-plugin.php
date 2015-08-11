@@ -4,7 +4,7 @@
 Plugin Name: WP Universal Exchange Informer
 Plugin URI: http://cyber-notes.net
 Description: Exchange rate informer for Wordpress
-Version: 0.4.4
+Version: 0.4.5
 Author: Santiaga
 Author URI: http://cyber-notes.net
 License: GPLv2 or later
@@ -484,7 +484,7 @@ function uci_generate_informer($id) {
 			if($dif>0) $informer_code.= "<td id=\"uci_curr_text_green\">+".$dif."</td>\n";
 			elseif($dif<0) $informer_code.="<td id=\"uci_curr_text_red\">".$dif."</td>\n";
 			else $informer_code.="<td id=\"uci_curr_text\">0.0000</td>\n";
-			echo "</tr>\n";
+			$informer_code.= "</tr>\n";
 		}
 		$informer_code.="</table>";
 		return $informer_code;
